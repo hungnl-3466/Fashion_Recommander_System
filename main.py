@@ -6,14 +6,17 @@ import pickle
 import tensorflow
 from tensorflow.keras.layers import GlobalMaxPooling2D
 from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input
+# from keras.applications.mobilenet_v3 import preprocess_input, decode_predictions
+from tensorflow.keras.applications import MobileNetV3Small
 from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
 import cv2
 
-feature_list = np.array(pickle.load(open('featurevector.pkl','rb')))
-filenames = pickle.load(open('filenames.pkl','rb'))
+feature_list = np.array(pickle.load(open('featurevector_mobileNet_v3.pkl','rb')))
+filenames = pickle.load(open('filenames_mobileNet_v3.pkl','rb'))
 
-model = ResNet50(weights='imagenet',include_top=False,input_shape=(224,224,3))
+# model = ResNet50(weights='imagenet',include_top=False,input_shape=(224,224,3))
+model = MobileNetV3Small(weights='imagenet',include_top=False,input_shape=(224,224,3))
 model.trainable = False
 
 model = tensorflow.keras.Sequential([
