@@ -1,6 +1,7 @@
 pillow
 numpy
-pickle
+# pickle
 tensorflow
-scikt-learn
+scikit-learn
 opencv-python
+streamlit
