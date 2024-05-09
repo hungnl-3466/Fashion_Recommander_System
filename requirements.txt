@@ -1,0 +1,6 @@
+pillow
+numpy
+pickle
+tensorflow
+scikt-learn
+opencv-python
