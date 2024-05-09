@@ -8,11 +8,6 @@ services:
     image: minio:0.0.1 # Hoặc bạn có thể dùng build: ./path_to_service2 nếu bạn có Dockerfile
     build: ./storage
     ports:
-      - "9000:9000" # Tùy chỉnh cổng theo yêu cầu của bạn
-      - "9001:9001"
+      - 8501:8501
     volumes:
-      - ~/minio:/storage_data
-    environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
-
+      - ./uploads:/app/uploads
