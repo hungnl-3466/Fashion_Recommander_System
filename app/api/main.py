@@ -12,8 +12,8 @@ from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
 import cv2
 
-feature_list = np.array(pickle.load(open('featurevector.pkl','rb')))
-filenames = pickle.load(open('filenames.pkl','rb'))
+feature_list = np.array(pickle.load(open('./app/model/featurevector.pkl','rb')))
+filenames = pickle.load(open('./app/model/filenames.pkl','rb'))
 
 model = ResNet50(weights='imagenet',include_top=False,input_shape=(224,224,3))
 # model = MobileNetV3Small(weights='imagenet',include_top=False,input_shape=(224,224,3))
@@ -28,7 +28,7 @@ st.title('Man & Women Fashion Recommender System')
 
 def save_uploaded_file(uploaded_file):
     try:
-        with open(os.path.join('uploads',uploaded_file.name),'wb') as f:
+        with open(os.path.join('./app/uploads',uploaded_file.name),'wb') as f:
             f.write(uploaded_file.getbuffer())
         return 1
     except:
@@ -63,7 +63,8 @@ if uploaded_file is not None:
         resized_img = display_image.resize((200, 200))
         st.image(resized_img)
         # feature extract
-        features = extract_feature(os.path.join("uploads",uploaded_file.name),model)
+        print("testtttt check")
+        features = extract_feature(os.path.join("./app/uploads",uploaded_file.name),model)
         #st.text(features)
         # recommendention
         indices = recommend(features,feature_list)
@@ -71,14 +72,14 @@ if uploaded_file is not None:
         col1,col2,col3,col4,col5 = st.columns(5)
 
         with col1:
-            st.image(filenames[indices[0][0]])
+            st.image(os.path.join("app", filenames[indices[0][0]]))
         with col2:
-            st.image(filenames[indices[0][1]])
+            st.image(os.path.join("app", filenames[indices[0][1]]))
         with col3:
-            st.image(filenames[indices[0][2]])
+            st.image(os.path.join("app", filenames[indices[0][2]]))
         with col4:
-            st.image(filenames[indices[0][3]])
+            st.image(os.path.join("app", filenames[indices[0][3]]))
         with col5:
-            st.image(filenames[indices[0][4]])
+            st.image(os.path.join("app", filenames[indices[0][4]]))
     else:
-        st.header("Some error occured in file upload")
+        st.header("[FAILED] Some error occured in file upload")
