@@ -1,3 +1,2 @@
-app/Dataset
-*.pkl
+app/src/Dataset
 app/model
