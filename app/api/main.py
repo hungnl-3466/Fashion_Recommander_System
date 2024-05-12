@@ -21,7 +21,7 @@ from applications.client_minio import minio_data
 
 feature_list = np.array(pickle.load(open('./app/model/featurevector.pkl','rb')))
 filenames = pickle.load(open('./app/model/filenames.pkl','rb'))
-print(sorted(filenames))
+# print(sorted(filenames))
 model = ResNet50(weights='imagenet',include_top=False,input_shape=(224,224,3))
 # model = MobileNetV3Small(weights='imagenet',include_top=False,input_shape=(224,224,3))
 model.trainable = False
