@@ -1,3 +1,5 @@
+# import sys
+# sys.path.append('app')
 import streamlit as st
 import os
 from PIL import Image
@@ -11,10 +13,15 @@ from tensorflow.keras.applications import MobileNetV3Small
 from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
 import cv2
+# from .  import minio_data
+import sys
+sys.path.insert(0,'app')
+from applications.client_minio import minio_data
+
 
 feature_list = np.array(pickle.load(open('./app/model/featurevector.pkl','rb')))
 filenames = pickle.load(open('./app/model/filenames.pkl','rb'))
-
+print(sorted(filenames))
 model = ResNet50(weights='imagenet',include_top=False,input_shape=(224,224,3))
 # model = MobileNetV3Small(weights='imagenet',include_top=False,input_shape=(224,224,3))
 model.trainable = False
@@ -68,18 +75,19 @@ if uploaded_file is not None:
         #st.text(features)
         # recommendention
         indices = recommend(features,feature_list)
+        # print(indices)
         # show
         col1,col2,col3,col4,col5 = st.columns(5)
 
         with col1:
-            st.image(os.path.join("app", filenames[indices[0][0]]))
+            st.image(minio_data(filenames[indices[0][0]]))
         with col2:
-            st.image(os.path.join("app", filenames[indices[0][1]]))
+            st.image(minio_data(filenames[indices[0][1]]))
         with col3:
-            st.image(os.path.join("app", filenames[indices[0][2]]))
+            st.image(minio_data(filenames[indices[0][2]]))
         with col4:
-            st.image(os.path.join("app", filenames[indices[0][3]]))
+            st.image(minio_data(filenames[indices[0][3]]))
         with col5:
-            st.image(os.path.join("app", filenames[indices[0][4]]))
+            st.image(minio_data(filenames[indices[0][4]]))
     else:
         st.header("[FAILED] Some error occured in file upload")
