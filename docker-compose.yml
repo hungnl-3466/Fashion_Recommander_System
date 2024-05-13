@@ -1,8 +1,16 @@
 services:
   app:
-    image: search-clothes
+    image: search-clothes:0.0.1
     ports:
       - 8501:8501
     # volumes:
     #   - ./uploads:/app/uploads
-  
+  # tensorflow_serving:
+    # image: tensorflow/serving
+    # ports:
+    #   - "8501:8501"
+    # volumes:
+    #   - /path/to/your/model:/models/your_model
+    # command: |
+    #   --model_name=your_model
+    #   --model_base_path=/models/your_model
