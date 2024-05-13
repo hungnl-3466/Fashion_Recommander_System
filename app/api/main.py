@@ -13,54 +13,30 @@ from tensorflow.keras.applications import MobileNetV3Small
 from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
 import cv2
+
+
 # from .  import minio_data
 import sys
 sys.path.insert(0,'app')
+# sys.path.insert(0,'domain')
 from applications.client_minio import minio_data
+from domain.pipeline import save_uploaded_file
 
 
-feature_list = np.array(pickle.load(open('./app/model/featurevector.pkl','rb')))
-filenames = pickle.load(open('./app/model/filenames.pkl','rb'))
-# print(sorted(filenames))
-model = ResNet50(weights='imagenet',include_top=False,input_shape=(224,224,3))
-# model = MobileNetV3Small(weights='imagenet',include_top=False,input_shape=(224,224,3))
-model.trainable = False
+# feature_list = np.array(pickle.load(open('./app/model/featurevector.pkl','rb')))
+# filenames = pickle.load(open('./app/model/filenames.pkl','rb'))
+# # print(sorted(filenames))
+# model = ResNet50(weights='imagenet',include_top=False,input_shape=(224,224,3))
+# # model = MobileNetV3Small(weights='imagenet',include_top=False,input_shape=(224,224,3))
+# model.trainable = False
 
-model = tensorflow.keras.Sequential([
-    model,
-    GlobalMaxPooling2D()
-])
+# model = tensorflow.keras.Sequential([
+#     model,
+#     GlobalMaxPooling2D()
+# ])
 
 st.title('Man & Women Fashion Recommender System')
 
-def save_uploaded_file(uploaded_file):
-    try:
-        with open(os.path.join('./app/uploads',uploaded_file.name),'wb') as f:
-            f.write(uploaded_file.getbuffer())
-        return 1
-    except:
-        return 0
-
-def extract_feature(img_path, model):
-    img=cv2.imread(img_path)
-    img=cv2.resize(img, (224,224))
-    img=np.array(img)
-    expand_img=np.expand_dims(img, axis=0)
-    pre_img=preprocess_input(expand_img)
-    result=model.predict(pre_img).flatten()
-    normalized=result/norm(result)
-    return normalized
-
-def recommend(features,feature_list):
-    neighbors = NearestNeighbors(n_neighbors=6, algorithm='brute', metric='euclidean')
-    neighbors.fit(feature_list)
-
-    distances, indices = neighbors.kneighbors([features])
-
-    return indices
-
-# steps
-# file upload -> save
 uploaded_file = st.file_uploader("Choose an image")
 print(uploaded_file)
 if uploaded_file is not None:
@@ -72,7 +48,6 @@ if uploaded_file is not None:
         # feature extract
         print("testtttt check")
         features = extract_feature(os.path.join("./app/uploads",uploaded_file.name),model)
-        #st.text(features)
         # recommendention
         indices = recommend(features,feature_list)
         # print(indices)
