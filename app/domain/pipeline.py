@@ -4,11 +4,14 @@ import numpy as np
 from sklearn.neighbors import NearestNeighbors
 from tensorflow.keras.applications.resnet50 import preprocess_input
 from numpy.linalg import norm
+import pickle
 
 class PipeLine():
     def __init__(self):
-        pass
-    def save_uploaded_file(self, uploaded_file):
+        self.feature_list = np.array(pickle.load(open('./app/model/featurevector.pkl','rb')))
+        self.filenames = pickle.load(open('./app/model/filenames.pkl','rb'))
+        self.model = 
+    def save_uploaded_file(uploaded_file):
         try:
             with open(os.path.join('./app/uploads',uploaded_file.name),'wb') as f:
                 f.write(uploaded_file.getbuffer())
@@ -26,9 +29,9 @@ class PipeLine():
         normalized=result/norm(result)
         return normalized
 
-    def recommend(self, features,feature_list):
+    def recommend(self, features):
         neighbors = NearestNeighbors(n_neighbors=6, algorithm='brute', metric='euclidean')
-        neighbors.fit(feature_list)
+        neighbors.fit(self.feature_list)
 
         distances, indices = neighbors.kneighbors([features])
 
