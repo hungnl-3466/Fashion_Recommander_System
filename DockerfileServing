@@ -1,0 +1,9 @@
+# Sử dụng TensorFlow Serving Docker image chính thức làm base image
+FROM tensorflow/serving:latest
+WORKDIR /tensf_serving
+# Sao chép thư mục SavedModel vào thư mục /models
+RUN cd /tensf_serving
+COPY app/model/1/resnet50_model /models/1/resnet50_model
+
+# Chạy TensorFlow Serving khi container được khởi chạy
+CMD ["tensorflow_model_server", "--port=5000", "--rest_api_port=5001", "--model_name=resnet50_model", "--model_base_path=/models/1/resnet50_model"]
