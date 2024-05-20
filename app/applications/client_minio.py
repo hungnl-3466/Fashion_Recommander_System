@@ -3,12 +3,12 @@ import cv2
 import numpy as np
 
 
-bucket_name = "dataset-clothes"
+bucket_name = "clothes-storage"
 folder_name = "Dataset"
 
-client = Minio(endpoint="localhost:9000",
-               access_key="PdalXxfm7LRV6r5hNZXB",
-               secret_key="8qeP3TngXv0vXvr0mSDJjOVCC14UMA1etZlbabpG",
+client = Minio(endpoint="192.168.12.24:9000",
+               access_key="SO97L2zmNDK1LrTCa0Jm",
+               secret_key="6qIFemNO9QZKG1J9P9YhiYOGdtWwvd5B6SmUKmAh",
                secure=False)
 print("[INFO] Extract dataset from minio server ===========")
 print("Bucket name: ", bucket_name)
