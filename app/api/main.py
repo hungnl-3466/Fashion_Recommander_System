@@ -7,10 +7,13 @@ import numpy as np
 from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
 import cv2
+import logging
+logger = logging.getLogger(__name__)
 
 import sys
-sys.path.insert(0,'app')
-
+# sys.path.insert(0,'app')
+# print(os.getcwd())
+logger.info("[INFO] ================= {}".format(os.getcwd()))
 from applications.client_minio import minio_data
 from domain.pipeline import PipeLine
 
