@@ -4,9 +4,6 @@ services:
     build: ./app # Nếu bạn có Dockerfile
     ports:
       - 8501:8501 # Tùy chỉnh cổng theo yêu cầu của bạn
-    # environment:
-    #   - ENV_VAR1=value1 # Các biến môi trường cần thiết
-
   minio:
     image: minio:0.0.1 # Hoặc bạn có thể dùng build: ./path_to_service2 nếu bạn có Dockerfile
     build: ./storage
@@ -19,4 +16,3 @@ services:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
 
-    # comands: server --console-address ":9001" /storage_data
