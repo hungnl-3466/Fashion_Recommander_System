@@ -6,7 +6,7 @@ import numpy as np
 bucket_name = "clothes-storage"
 folder_name = "Dataset"
 
-client = Minio(endpoint="192.168.12.24:9000",
+client = Minio(endpoint="minio:9000",
                access_key="SO97L2zmNDK1LrTCa0Jm",
                secret_key="6qIFemNO9QZKG1J9P9YhiYOGdtWwvd5B6SmUKmAh",
                secure=False)
