@@ -9,11 +9,10 @@ SECRET_KEY_LAPTOP = os.environ.get("SECRET_KEY_LAPTOP")
 
 bucket_name = "clothes-storage"
 folder_name = "Dataset"
-print(ACCESS_KEY_LAPTOP)
-print(SECRET_KEY_LAPTOP)
-client = Minio(endpoint="localhost:9000",
-               access_key=ACCESS_KEY_LAPTOP,
-               secret_key=SECRET_KEY_LAPTOP,
+
+client = Minio(endpoint="minio:9000",
+               access_key="SO97L2zmNDK1LrTCa0Jm",
+               secret_key="6qIFemNO9QZKG1J9P9YhiYOGdtWwvd5B6SmUKmAh",
                secure=False)
 print("[INFO] Extract dataset from minio server ===========")
 print("Bucket name: ", bucket_name)
