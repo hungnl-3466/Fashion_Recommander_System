@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 COPY . ./app
 RUN cd ./app 
 RUN pip install minio
+
+RUN pip install python-dotenv
 CMD [ "python", "app/api/main.py" ]
 CMD ["streamlit", "run","app/api/main.py"]
 # CMD ["bash"]
