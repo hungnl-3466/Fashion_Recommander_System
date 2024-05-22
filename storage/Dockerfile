@@ -5,7 +5,7 @@ FROM minio/minio
 
 # COPY /home/nguyen.luong.hung@sun-asterisk.com/minio .
 
-WORKDIR minio_storage
+WORKDIR /minio_storage
 # COPY . /minio_storage
 
 ENV RootUser minioadmin 
